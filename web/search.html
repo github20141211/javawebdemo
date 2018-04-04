@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="javascript">
+        var xmlHttp;
+        var result;
+
+        function createXMLHttpRequest() {
+            if(window.ActiveXObject) {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }else if(window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+        }
+
+        function search() {
+            if(document.all.query.value == "") {
+                alert("对不起，请你先输入查询关健字体");
+                return;
+            }
+            context = document.all.query.value;
+            rssize = document.all.resultSize.value;
+            document.all.wait.style.display = "inline";
+            createXMLHttpRequest();
+            xmlHttp.onreadystatechange = processor;
+            xmlHttp.open("GET", "YahooSearch?query=" + context +"&results=" + rssize);
+            xmlHttp.send(null);
+        }
+
+        function processor() {
+            if(xmlHttp.readyState == 4) {
+                if(xmlHttp.status == 200) {
+                  document.all.wait.style.display = "none";
+                  result = xmlHttp.responseXML.getElementsByTagName("Result");
+                  parseResult();
+                }else {
+                    document.all.wait.style.display = "none";
+                    alert("搜索失败");
+                }
+            }
+        }
+        function parseResult() {
+            var tabl = document.getElementById("resultList");
+            while(table.childNodes.length >0) {
+                table.removeChild(table.childNodes[0]);
+            }
+
+            for(var i =0;i<result.length; i++) {
+                tr = table.insertRow(-1);
+                cell = tr.insertCell(-1);
+                tr.height = 25;
+                tr.className = "titleCss";
+                link = document.createElement("a");
+                link.setAttribute("href", result[i].childNodes[3].firstChild.nodeValue);
+                link.setAttribute("target", "_blank");
+                link.appendChild(document.createTextNode(result[i].childNodes[0].firstChild.nodeValue));
+                cell.appendChild(link);
+
+                tr = table.insertRow(-1);
+                cell = tr.insertCell(-1);
+                tr.height = 20;
+                tr.className="contextCss";
+                cel.innerHTML=result[i].childNodes[1].firstChild.nodeValue;
+
+                tr = table.insertRow(-1);
+                cell = tr.insertCell(-1);
+                tr.height = 20;
+                tr.className = "linkCss";
+                cell.innerHTML = result[i].childNodes[2].firstChild.nodeValue;
+                tr = table.insertRow(-1);
+                cell = tr.insertCell(-1);
+                cell.innerHTML="&nbsp";
+            }
+        }
+    </script>
+
+</head>
+<body bgcolor="#ffffee"><h2>调用Yahoo的搜索 WebService实现搜索</h2><br/>
+    请输入关键字：<input id="query" type="text">
+    记录数：
+    <select id="resultSize">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="30">30</option>
+        <option value="40">40</option>
+    </select>
+    <input type="button" value="搜索" onclick="search()">
+    <span id="wait" style="display:none;"><img src="images/0.gif"></span></body><br/>
+    <h2>搜索结果：</h2>
+    <table id="resultList" border="0" width="800"></table>
+
+</body>
+</html>

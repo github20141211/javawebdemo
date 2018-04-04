@@ -30,4 +30,13 @@
         <servlet-name>GetPhoto</servlet-name>
         <url-pattern>/GetPhoto</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>YahooSearch</servlet-name>
+        <servlet-class>com.aflying.action.YahooSearch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>YahooSearch</servlet-name>
+        <url-pattern>/YahooSearch</url-pattern>
+    </servlet-mapping>
 </web-app>
