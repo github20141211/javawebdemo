@@ -12,4 +12,22 @@
         <servlet-name>CreateXML</servlet-name>
         <url-pattern>/CreateXML</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateCounter</servlet-name>
+        <servlet-class>com.aflying.action.UpdateCounter</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateCounter</servlet-name>
+        <url-pattern>/UpdateCounter</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetPhoto</servlet-name>
+        <servlet-class>com.aflying.action.GetPhoto</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetPhoto</servlet-name>
+        <url-pattern>/GetPhoto</url-pattern>
+    </servlet-mapping>
 </web-app>

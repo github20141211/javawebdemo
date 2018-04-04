@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="javascript">
+        var xmlHttp;
+        function createXMLHttpRequest() {
+            if(window.ActiveXObject) {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }else if(window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+        }
+
+        function autoFlush() {
+            var tempTime = new Date();
+            var tempParameter = tempTime.getTime();
+            createXMLHttpRequest();
+            xmlHttp.onreadystatechange = processor;
+            xmlHttp.open("GET", "UpdateCounter?rnd=" + tempParameter);
+            xmlHttp.send(null);
+        }
+
+        function processor() {
+            var result;
+            if(xmlHttp.readyState == 4) {
+                if(xmlHttp.status == 200) {
+                    result = xmlHttp.responseXML.getElementsByTagName("counter");
+                    for(var i = 0;i<result.length; i++) {
+                        var tempHeight = result[i].childNodes[0].nodeValue;
+                        document.getElementById("bar" + i).height = tempHeight;
+                    }
+                }
+            }
+        }
+        setInterval("autoFlush();", 1000)
+    </script>
+</head>
+<body>
+    <table border="0" bgcolor="#c0c0c0" width="360px">
+        <tr>
+           <td colspan="6" align="center"><h2>指标动态统计图</h2></td>
+        </tr>
+        <tr height="100" align="center" valign="bottom">
+            <td><img id="bar0" src="images/0.gif" width="20"></td>
+            <td><img id="bar1" src="images/1.gif" width="20"></td>
+            <td><img id="bar2" src="images/2.gif" width="20"></td>
+            <td><img id="bar3" src="images/3.gif" width="20"></td>
+            <td><img id="bar4" src="images/4.gif" width="20"></td>
+            <td><img id="bar5" src="images/5.gif" width="20"></td>
+        </tr>
+        <tr height="20" align="center">
+            <td>指标一</td>
+            <td>指标二</td>
+            <td>指标三</td>
+            <td>指标四</td>
+            <td>指标五</td>
+            <td>指标六</td>
+        </tr>
+    </table>
+</body>
+</html>

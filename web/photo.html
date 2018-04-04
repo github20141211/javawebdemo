@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="javascript">
+        var xmlHttp;
+        var selected=0;
+        function createXMLHttpRequest() {
+            if(window.ActiveXObject) {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }else if(window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+        }
+
+        function getPhoto() {
+            createXMLHttpRequest();
+            xmlHttp.onreadystatechange = processor;
+            xmlHttp.open("GET", "GetPhoto?selected=" + selected);
+            xmlHttp.send(null);
+        }
+
+        function processor() {
+            var result;
+            if(xmlHttp.readyState == 4) {
+                if(xmlHttp.status == 200) {
+                   document.all.photo.src=xmlHttp.responseText;
+                }
+            }
+        }
+        function prev() {
+            selected = (selected-1+5) % 5;
+            getPhoto();
+        }
+        function next() {
+            selected = (selected-1+5) % 5;
+            getPhoto();
+        }
+    </script>
+    <script>
+        function test() {
+            selected = (selected-1+5) % 5;
+            getPhoto();
+        }
+    </script>
+</head>
+<body>
+    <table border="0" bgcolor="#c0c0c0" width="360px" height="240px">
+        <tr><td colspan="2" align="center"><h2>电子相册</h2></tr>
+        <tr><td colspan="2" align="center"><img id="photo" src="images/0.gif"></td></tr>
+        <tr>
+            <td align="center"><span onClick="prev()" style="cursor:hand;">上一张</span></td>
+            <td align="center"><span onClick="next()" style="cursor:hand;">下一张</span></td>
+        </tr>
+    </table>
+
+    <button onclick="test()">测试</button>
+</body>
+</html>
