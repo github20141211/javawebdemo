@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script language="javascript">
+        var xmlHttp;
+       var x,y;
+        function createXMLHttpRequest() {
+            if(window.ActiveXObject) {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }else if(window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+        }
+
+        function over(index) {
+            x = event.clientX;
+            y = event.clientY;
+            createXMLHttpRequest();
+            xmlHttp.onreadystatechange = processor;
+            xmlHttp.open("GET", "CreateTip?index=" + index);
+            xmlHttp.send(null);
+        }
+
+        function processor() {
+            var result;
+            if(xmlHttp.readyState == 4) {
+                if(xmlHttp.status == 200) {
+                   result = xmlHttp.responseXML.getElementsByTagName("shop");
+                   document.all.tip.style.display = "block";
+                   document.all.tip.style.top = y;
+                   document.all.tip.style.left = x + 10;
+                   document.all.photo.src = result[0].childNodes[2].firstChild.nodeValue;
+                   document.all.tipTable.rows[1].cells[0].innerHTML=
+                       "商品名称: " + result[0].childNodes[0].firstChild.nodeValue;
+                   document.all.tipTable.rows[2].cells[0].innerHTML=
+                       "商品价格: " + result[0].childNodes[1].firstChild.nodeValue;
+                }
+            }
+        }
+        function out() {
+            document.all.tip.style.display="none";
+        }
+    </script>
+</head>
+<body>
+    <h2>工具提示</h2><br><hr>
+    <a href="#" onmouseover="over(0)"onmouseout="out()">商品一</a><br><br>
+    <a href="#" onmouseover="over(1)"onmouseout="out()">商品二</a><br><br>
+    <a href="#" onmouseover="over(2)"onmouseout="out()">商品三</a><br><br>
+
+    <div id="tip"style="position:absolute;display:none;border:1px;border-style:solid;">
+       <TABLE id="tipTable" border="0" bgcolor="#ffffee">
+           <tr align="center"><td><img id ="photo" src="" height="80" width="80"></td></tr>
+           <tr><td></td></tr>
+           <tr><td></td></tr>
+       </TABLE>
+    </div>
+
+</body>
+</html>

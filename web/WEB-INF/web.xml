@@ -39,4 +39,13 @@
         <servlet-name>YahooSearch</servlet-name>
         <url-pattern>/YahooSearch</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateTip</servlet-name>
+        <servlet-class>com.aflying.action.CreateTip</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateTip</servlet-name>
+        <url-pattern>/CreateTip</url-pattern>
+    </servlet-mapping>
 </web-app>
