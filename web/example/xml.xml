@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<user>
+    <name>张三</name>
+    <password>abc123</password>
+    <department>技术部</department>
+    <headship>主管</headship>
+    <sex>男</sex>
+    <old>28</old>
+</user>

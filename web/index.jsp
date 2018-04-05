@@ -6,10 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="JSONRPCBridge" scope="session" class="com.metaparadigm.jsonrpc.JSONRPCServlet"/>
 <html>
   <head>
     <title>ajax测试</title>
     <script type="text/javascript" src="/js/select.js"></script>
+    <script type="text/javascript" src="/js/jsonrpc.js"></script>
   </head>
   <body>
   Hello JavaWeb

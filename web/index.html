@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax+Json</title>
+    <script type="text/javascript" src="js/json.js"></script>
+    <script language="javascript">
+        var xmlHttp;
+        function createXMLHttpRequest() {
+            if(window.ActiveXObject) {
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }else if(window.XMLHttpRequest) {
+                xmlHttp = new XMLHttpRequest();
+            }
+        }
+
+        function addNew() {
+            var arg0, arg1, arg2, arg3, arg4, arg5;
+            arg0 = document.all.userName.value;
+            arg1 = document.all.password.value;
+            arg2 = document.all.department.value;
+            arg3 = document.all.headship.value;
+            arg4 = document.all.sex.value;
+            arg5 = document.all.old.value;
+
+            if(arg0 == "") {
+                alert("对不起，请输入姓名");
+                return ;
+            }
+            if(arg1 == "") {
+                alert("对不起，请输入密码");
+                return ;
+            }
+            if(arg2 == "") {
+                alert("对不起，请输入部门");
+                return ;
+            }
+            if(arg3 == "") {
+                alert("对不起，请输入职务");
+                return ;
+            }
+            if(arg5 == "") {
+                alert("对不起，请输入年龄");
+                return ;
+            }
+
+            var newuser = new User(arg0,arg1,arg2,arg3,arg4,arg5);
+            var userAsJSON = JSON.stringify(newuser);
+            createXMLHttpRequest();
+            xmlHttp.onreadystatechange = processor;
+            xmlHttp.open("POST", "AddUser" , true);
+            xmlHttp.send(userAsJSON);
+        }
+
+        function processor() {
+            var user, arg0, arg1, arg2, arg3, arg4, arg5;
+            if(xmlHttp.readyState == 4) {
+                if(xmlHttp.status == 200) {
+                    user = JSON.parse(xmlHttp.responseText);
+                    arg0 = user.userName;
+                    arg1 = user.password;
+                    arg2 = user.department;
+                    arg3 = user.headship;
+                    arg4 = user.sex;
+                    arg4 = user.sex;
+                    arg5 = user.old;
+                    updateTable(arg0, arg1, arg2, arg3, arg4, arg5);
+                }
+            }
+        }
+        function User(userName,password,department,headship,dex,old) {
+            this.userName = userName;
+            this.passowrd = password;
+            this.department = department;
+            this.headship = headship;
+            this.sex = sex;
+            this.old = old;
+        }
+
+        function updateTable(arg0, arg1, arg2, arg3, arg4, arg5) {
+            document.all.userTable.insertRow(-1);
+            var rows = document.all.userTable.rows.length;
+            document.all.userTable.rows[rows-1].gbColor = "#ffffff";
+            document.all.userTable.rows[rows-1].align="ecnter";
+
+            document.all.userTable.rows[rows -1].insertCell(-1);
+            document.all.userTable.rows[rows -1].insertCell(-1);
+            document.all.userTable.rows[rows -1].insertCell(-1);
+            document.all.userTable.rows[rows -1].insertCell(-1);
+            document.all.userTable.rows[rows -1].insertCell(-1);
+            document.all.userTable.rows[rows -1].insertCell(-1);
+
+            document.all.userTable.rows[rows -1].cells[0].innerText=arg0;
+            document.all.userTable.rows[rows -1].cells[1].innerText=arg1;
+            document.all.userTable.rows[rows -1].cells[2].innerText=arg2;
+            document.all.userTable.rows[rows -1].cells[3].innerText=arg3;
+            document.all.userTable.rows[rows -1].cells[4].innerText=arg4;
+            document.all.userTable.rows[rows -1].cells[5].innerText=arg5;
+
+        }
+    </script>
+</head>
+<body>
+    <h2>AJAX+JSON示例</h2><hr>
+    姓名：<input name="userName" id="userName" type="text"><br/>
+    密码：<input name="password" id="password" type="text"><br/>
+    部门：<input name="department" id="department" type="text"><br/>
+    职务：<input name="headship" id="headship" type="text"><br/>
+    性别：<select id="sex">
+        <option value="1">男</option>
+        <option value="2">女</option>
+    </select><br/>
+    年龄：<input name="old" id="old" type="text"><br/>
+        <input type="button" name="btn" value="新增用户" onclick="addNew()"><br/><br/>
+        <TABLE id="userTable" border="1" width="500px" bgcolor="#eeeeee">
+            <tr>
+                <TD ALIGN="center">姓名</TD>
+                <TD ALIGN="center">密码</TD>
+                <TD ALIGN="center">部门</TD>
+                <TD ALIGN="center">职务</TD>
+                <TD ALIGN="center">性别</TD>
+                <TD ALIGN="center">年龄</TD>
+            </tr>
+        </TABLE>
+
+
+</body>
+</html>

@@ -48,4 +48,21 @@
         <servlet-name>CreateTip</servlet-name>
         <url-pattern>/CreateTip</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddUser</servlet-name>
+        <servlet-class>com.aflying.action.AddUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddUser</servlet-name>
+        <url-pattern>/AddUser</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>JSONRPCServlet</servlet-name>
+        <servlet-class>com.metaparadigm.jsonrpc.JSONRPCServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JSONRPCServlet</servlet-name>
+        <url-pattern>/JSON-RPC</url-pattern>
+    </servlet-mapping>
 </web-app>

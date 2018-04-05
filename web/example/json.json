@@ -1,0 +1,8 @@
+{
+  "name":"张三",
+  "password":"abc123",
+  "department":"技术部",
+  "headship":"主管",
+  "sex":"男",
+  "old":"28"
+}
